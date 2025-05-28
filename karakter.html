@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Pikachu - My Favorite Pokémon!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFDE00;
+            --red: #CC0000;
+            --blue: #3B4CCA;
+            --light-yellow: #FFF9AA;
+            --black: #2A2A2A;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: var(--light-yellow);
+            color: var(--black);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        nav {
+            background-color: var(--red);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 5px solid var(--blue);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            position: relative;
+            text-transform: uppercase;
+        }
+        
+        nav a:hover {
+            color: var(--yellow);
+            transform: scale(1.1);
+        }
+        
+        nav a::after {
+            content: '⚡';
+            position: absolute;
+            opacity: 0;
+            right: -15px;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover::after {
+            opacity: 1;
+        }
+        
+        .pikachu-logo {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            width: 50px;
+            filter: drop-shadow(0 0 5px rgba(255, 222, 0, 0.8));
+        }
+        
+        .hero-character {
+            text-align: center;
+            padding: 8rem 2rem 10rem 2rem;
+            background: url('https://images.unsplash.com/photo-1542779283-429940ce8336?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center;
+            background-size: cover;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-character::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(204, 0, 0, 0.6);
+        }
+        
+        .hero-character h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 0 var(--blue), -3px -3px 0 var(--yellow);
+            position: relative;
+            z-index: 2;
+            color: white;
+            letter-spacing: 2px;
+        }
+        
+        .hero-character p {
+            font-size: 1.8rem;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            color: var(--yellow);
+            font-weight: bold;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .character-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            transform: translateY(0);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid var(--yellow);
+        }
+        
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 222, 0, 0.3);
+        }
+        
+        .character-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--red);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin: -150px auto 2rem auto;
+            position: relative;
+            z-index: 10;
+            background-color: white;
+        }
+        
+        .section-title {
+            color: var(--red);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+        
+        .section-title::after {
+            content: '⚡';
+            position: absolute;
+            color: var(--yellow);
+            right: -30px;
+            font-size: 2rem;
+            animation: spark 1s infinite;
+        }
+        
+        @keyframes spark {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .character-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .info-box {
+            background-color: var(--light-yellow);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--blue);
+        }
+        
+        .info-box h3 {
+            color: var(--blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-box h3 i {
+            margin-right: 10px;
+            color: var(--red);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            height: 200px;
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 222, 0, 0.5);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .quote {
+            font-style: italic;
+            padding: 2rem;
+            background-color: rgba(59, 76, 202, 0.1);
+            border-left: 4px solid var(--red);
+            margin: 2rem 0;
+            border-radius: 15px;
+            position: relative;
+            font-size: 1.3rem;
+        }
+        
+        .quote::before {
+            content: '"';
+            position: absolute;
+            font-size: 5rem;
+            color: rgba(255, 222, 0, 0.2);
+            top: -20px;
+            left: 10px;
+            font-family: serif;
+        }
+        
+        .quote p:last-child {
+            text-align: right;
+            margin-top: 1rem;
+            color: var(--red);
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background-color: var(--blue);
+            color: white;
+            margin-top: 3rem;
+            border-top: 5px solid var(--red);
+            position: relative;
+        }
+        
+        footer::before {
+            content: 'PIKACHU';
+            position: absolute;
+            font-size: 10rem;
+            color: rgba(255, 255, 255, 0.05);
+            font-weight: 900;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .social-links a:hover {
+            color: var(--yellow);
+            transform: translateY(-5px);
+        }
+        
+        .pikachu-icon {
+            width: 100px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            filter: drop-shadow(0 0 10px rgba(255, 222, 0, 0.7));
+            animation: bounce 1s infinite alternate;
+            z-index: 100;
+        }
+        
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+        
+        .pokeball {
+            width: 50px;
+            position: fixed;
+            bottom: 130px;
+            right: 45px;
+            cursor: pointer;
+            z-index: 99;
+            animation: spin 5s infinite linear;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .electric-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 222, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(204, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(59, 76, 202, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav a {
+                margin: 0.5rem 0;
+            }
+            
+            .hero-character h1 {
+                font-size: 3rem;
+            }
+            
+            .character-img {
+                width: 250px;
+                height: 250px;
+                margin-top: -100px;
+            }
+            
+            .pikachu-logo {
+                position: static;
+                margin-bottom: 1rem;
+            }
+            
+            .pikachu-icon, .pokeball {
+                width: 70px;
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .pokeball {
+                bottom: 90px;
+                right: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="electric-effect"></div>
+    
+    <nav>
+        <img src="https://www.freepnglogos.com/uploads/pokemon-symbol-logo-png-31.png" alt="Pokémon Logo" class="pikachu-logo">
+        <ul>
+            <li><a href="index.html"><i class="fas fa-user"></i> My Profile</a></li>
+            <li><a href="karakter.html"><i class="fas fa-bolt"></i> Pikachu</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-character">
+        <h1>PIKACHU</h1>
+        <p>The Electric Mouse Pokémon!</p>
+    </div>
+
+    <div class="container">
+        <div class="character-card">
+            <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png" alt="Pikachu" class="character-img">
+            
+            <h2 class="section-title">Pika Pika!</h2>
+            <p>Pikachu is an Electric-type Pokémon and the mascot of the Pokémon franchise. Known for its cute appearance and powerful electric abilities, Pikachu is the best friend and partner of Ash Ketchum in the Pokémon anime series. When Pikachu is happy or surprised, it releases electricity uncontrollably!</p>
+            
+            <div class="character-info">
+                <div class="info-box">
+                    <h3><i class="fas fa-book-open"></i> Pokémon Data</h3>
+                    <ul>
+                        <li><strong>Type:</strong> Electric</li>
+                        <li><strong>Height:</strong> 0.4 m (1'04")</li>
+                        <li><strong>Weight:</strong> 6.0 kg (13.2 lbs)</li>
+                        <li><strong>Abilities:</strong> Static (may paralyze on contact)</li>
+                        <li><strong>Hidden Ability:</strong> Lightning Rod</li>
+                        <li><strong>Evolves From:</strong> Pichu (with high friendship)</li>
+                        <li><strong>Evolves Into:</strong> Raichu (with Thunder Stone)</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3><i class="fas fa-bolt"></i> Moves & Abilities</h3>
+                    <ul>
+                        <li>⚡ Thunderbolt (Signature move!)</li>
+                        <li>💥 Quick Attack</li>
+                        <li>🌀 Electro Ball</li>
+                        <li>🏃 Iron Tail</li>
+                        <li>🛡️ Volt Tackle</li>
+                        <li>🌟 Gigantamax Form (in Sword/Shield)</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3><i class="fas fa-heart"></i> Why Pikachu is My Favorite</h3>
+                    <p>Pikachu is the most iconic Pokémon for a reason! Its cute design, powerful electric attacks, and loyal personality make it the perfect companion. I love how Pikachu can be both adorable and fierce in battle. The bond between Ash and Pikachu in the anime is truly inspiring!</p>
+                </div>
+                
+                <div class="info-box">
+                    <h3><i class="fas fa-film"></i> Notable Appearances</h3>
+                    <ul>
+                        <li>📺 Pokémon Anime (1997-Present)</li>
+                        <li>🎮 Pokémon Red/Blue/Yellow (1996)</li>
+                        <li>🎥 Pokémon: Detective Pikachu (2019)</li>
+                        <li>🕹️ Super Smash Bros. Series</li>
+                        <li>🎭 Pokémon Live Events</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="quote">
+                <p>Pikachu, I choose you!</p>
+                <p>- Ash Ketchum</p>
+            </div>
+            
+            <h3 class="section-title">Pikachu Gallery</h3>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png" alt="Classic Pikachu">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025_f2.png" alt="Pikachu Female">
+                </div>
+                <div class="gallery-item">
+                    <img src="02c8d98af95b5b5b1178e5a2348b344c.jpg" alt="Cosplay Pikachu">
+                </div>
+                <div class="gallery-item">
+                    <img src="aqaqaqa.png" alt="Pikachu Libre">
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <img src="https://www.freepnglogos.com/uploads/pokeball-png/pokeball-pokemon-theme-team-ideas-for-pokemon-sun-and-moon-24.png" alt="Poké Ball" class="pokeball">
+    <img src="https://www.freepnglogos.com/uploads/pikachu-png/pikachu-transparent-png-0.png" alt="Pikachu Icon" class="pikachu-icon" onclick="alert('Pika Pika! ⚡')">
+
+    <footer>
+        <p>Gotta catch 'em all! Let's be Pokémon friends!</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p>&copy; 2023 Pokémon Trainer. All rights reserved. "Pokémon" and "Pikachu" are trademarks of Nintendo.</p>
+    </footer>
+
+    <script>
+        // Pikachu sound effect
+        const pikachuIcon = document.querySelector('.pikachu-icon');
+        
+        pikachuIcon.addEventListener('mouseover', () => {
+            document.body.style.backgroundColor = '#FFDE00';
+            setTimeout(() => {
+                document.body.style.backgroundColor = '#FFF9AA';
+            }, 300);
+        });
+        
+        // Electric effect on click
+        const pokeball = document.querySelector('.pokeball');
+        
+        pokeball.addEventListener('click', () => {
+            const sparks = document.createElement('div');
+            sparks.innerHTML = '⚡⚡⚡';
+            sparks.style.position = 'fixed';
+            sparks.style.fontSize = '3rem';
+            sparks.style.color = '#FFDE00';
+            sparks.style.top = '50%';
+            sparks.style.left = '50%';
+            sparks.style.transform = 'translate(-50%, -50%)';
+            sparks.style.zIndex = '1000';
+            sparks.style.animation = 'spark 0.5s forwards';
+            document.body.appendChild(sparks);
+            
+            setTimeout(() => {
+                sparks.remove();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Pikachu Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --yellow: #FFDE00;
+            --red: #CC0000;
+            --blue: #3B4CCA;
+            --light-yellow: #FFF9AA;
+            --black: #2A2A2A;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--light-yellow);
+            color: var(--black);
+            min-height: 100vh;
+        }
+        
+        nav {
+            background-color: var(--red);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 5px solid var(--blue);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--yellow);
+            transform: scale(1.1);
+        }
+        
+        nav a::after {
+            content: '⚡';
+            position: absolute;
+            opacity: 0;
+            right: -15px;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover::after {
+            opacity: 1;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem 8rem 2rem;
+            background: url('https://images.unsplash.com/photo-1542779283-429940ce8336?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center;
+            background-size: cover;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 5rem;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(204, 0, 0, 0.6);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-shadow: 2px 2px 0 var(--blue);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            color: var(--yellow);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            border: 5px solid var(--yellow);
+        }
+        
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--red);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin: -100px auto 2rem auto;
+            position: relative;
+            z-index: 10;
+            background-color: white;
+        }
+        
+        .section-title {
+            color: var(--red);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '⚡';
+            position: absolute;
+            color: var(--yellow);
+            right: -30px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .info-box {
+            background: var(--light-yellow);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--blue);
+        }
+        
+        .info-box h3 {
+            color: var(--blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-box h3 i {
+            margin-right: 10px;
+            color: var(--red);
+        }
+        
+        ul.skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+        }
+        
+        ul.skills li {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            border: 1px solid var(--yellow);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--blue);
+            color: white;
+            margin-top: 3rem;
+            border-top: 5px solid var(--red);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .social-links a:hover {
+            color: var(--yellow);
+            transform: translateY(-3px);
+        }
+        
+        .pikachu-icon {
+            width: 80px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-15px); }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav a {
+                margin: 0.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .profile-img {
+                width: 150px;
+                height: 150px;
+                margin-top: -75px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-user"></i> My Profile</a></li>
+            <li><a href="karakter.html"><i class="fas fa-bolt"></i> Favorite Pokémon</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <h1>Hello, I'm Ersen</h1>
+        <p>Welcome to my personal website with a Pikachu theme!</p>
+    </div>
+
+    <div class="container">
+        <div class="profile-card">
+            <img src="unnamed.png" alt="My Photo" class="profile-img">
+            
+            <h2 class="section-title">About Me</h2>
+            <p>I'm a passionate student with a love for gaming and adventures. I was born in Earth and currently living in Earth. I enjoy creating things and exploring new technologies.</p>
+            
+            <div class="info-grid">
+                <div class="info-box">
+                    <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                    <ul>
+                        <li>🎓 Santa Laurensia 2013-2025</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3><i class="fas fa-briefcase"></i> Personality</h3>
+                    <ul>
+                        <li>🔧 Lazy</li>
+                        <li>🌟 Skinny</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3><i class="fas fa-heart"></i> Hobbies</h3>
+                    <ul class="skills">
+                        <li>📚 Playing</li>
+                        <li>🎮 Gaming</li>
+                        <li>🎵 Music</li>
+                        <li>✈️ Traveling</li>
+                        <li>💻 Swim</li>
+                        <li>🎨 Sleep</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3><i class="fas fa-code"></i> Skills</h3>
+                    <ul class="skills">
+                        <li>Able to be normal</li>
+                        <li>Go adventure to mountain</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <img src="https://www.freepnglogos.com/uploads/pikachu-png/pikachu-transparent-png-0.png" alt="Pikachu Icon" class="pikachu-icon" onclick="alert('Pika Pika! ⚡')">
+
+    <footer>
+        <p>Connect with me on social media</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p>&copy; 2025 My Personal Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Pikachu sound effect
+        const pikachuIcon = document.querySelector('.pikachu-icon');
+        pikachuIcon.addEventListener('click', () => {
+            const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
+            audio.play();
+        });
+    </script>
+</body>
+</html>
